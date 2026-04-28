@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,282 +12,392 @@
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- ===== LOGIN SCREEN ===== -->
-<div id="screen-login" class="screen active">
-  <div class="login-bg">
-    <div class="login-grain"></div>
-    <div class="login-card">
-      <div class="login-logo">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 60'%3E%3Cg fill='%238B1A1A'%3E%3Cellipse cx='20' cy='50' rx='4' ry='8'/%3E%3Cellipse cx='40' cy='42' rx='4' ry='14'/%3E%3Cellipse cx='60' cy='50' rx='4' ry='8'/%3E%3Cellipse cx='30' cy='36' rx='3' ry='10' transform='rotate(-15 30 36)'/%3E%3Cellipse cx='50' cy='36' rx='3' ry='10' transform='rotate(15 50 36)'/%3E%3C/g%3E%3C/svg%3E" alt="VMC" class="login-icon">
-        <div class="login-brand">
-          <span class="brand-main">viana e moura</span>
-          <span class="brand-sub">construções</span>
+  <!-- ===== LOGIN SCREEN ===== -->
+  <div id="screen-login" class="screen active">
+    <div class="login-bg">
+      <div class="login-grain"></div>
+      <div class="login-card">
+        <div class="login-logo">
+          <img
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 60'%3E%3Cg fill='%238B1A1A'%3E%3Cellipse cx='20' cy='50' rx='4' ry='8'/%3E%3Cellipse cx='40' cy='42' rx='4' ry='14'/%3E%3Cellipse cx='60' cy='50' rx='4' ry='8'/%3E%3Cellipse cx='30' cy='36' rx='3' ry='10' transform='rotate(-15 30 36)'/%3E%3Cellipse cx='50' cy='36' rx='3' ry='10' transform='rotate(15 50 36)'/%3E%3C/g%3E%3C/svg%3E"
+            alt="VMC" class="login-icon">
+          <div class="login-brand">
+            <span class="brand-main">viana e moura</span>
+            <span class="brand-sub">construções</span>
+          </div>
+        </div>
+        <h1 class="login-title">Bem-vindo de volta</h1>
+        <p class="login-subtitle">Faça login para acessar sua conta</p>
+        <div class="form-group">
+          <label><svg viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
+            </svg> E-mail ou Username</label>
+          <input type="text" id="login-user" placeholder="eliakimrocha" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label><svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" />
+            </svg> Senha</label>
+          <div class="input-password-wrap">
+            <input type="password" id="login-pass" placeholder="••••••••••••" autocomplete="current-password">
+            <button class="toggle-pass" onclick="togglePass()">
+              <svg id="eye-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                <path fill-rule="evenodd"
+                  d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="doLogin()">
+          <svg viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" />
+          </svg>
+          Entrar
+        </button>
+        <div class="login-links">
+          <a href="#"><svg viewBox="0 0 20 20" fill="currentColor">
+              <path
+                d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
+            </svg> Primeiro acesso? Crie sua conta</a>
+          <a href="#"><svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" />
+            </svg> Esqueceu sua senha?</a>
         </div>
       </div>
-      <h1 class="login-title">Bem-vindo de volta</h1>
-      <p class="login-subtitle">Faça login para acessar sua conta</p>
-      <div class="form-group">
-        <label><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg> E-mail ou Username</label>
-        <input type="text" id="login-user" placeholder="eliakimrocha" autocomplete="username">
-      </div>
-      <div class="form-group">
-        <label><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"/></svg> Senha</label>
-        <div class="input-password-wrap">
-          <input type="password" id="login-pass" placeholder="••••••••••••" autocomplete="current-password">
-          <button class="toggle-pass" onclick="togglePass()">
-            <svg id="eye-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-          </button>
+    </div>
+  </div>
+
+  <!-- ===== HOME SCREEN ===== -->
+  <div id="screen-home" class="screen">
+    <header class="app-header">
+      <div class="header-left">
+        <div class="header-logo">
+          <span class="hl-initials">VM</span>
+        </div>
+        <div>
+          <div class="header-title">Liberações de Segurança</div>
+          <div class="header-sub">Viana &amp; Moura</div>
         </div>
       </div>
-      <button class="btn-primary" onclick="doLogin()">
-        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"/></svg>
-        Entrar
-      </button>
-      <div class="login-links">
-        <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/></svg> Primeiro acesso? Crie sua conta</a>
-        <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z"/></svg> Esqueceu sua senha?</a>
+      <div class="header-right">
+        <button class="info-btn" onclick="showInfoModal()" title="Sobre o Sistema">
+          <svg viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div class="user-chip" onclick="showProfile()">
+          <span id="user-initials">ER</span>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
+    </header>
 
-<!-- ===== HOME SCREEN ===== -->
-<div id="screen-home" class="screen">
-  <header class="app-header">
-    <div class="header-left">
-      <div class="header-logo">
-        <span class="hl-initials">VM</span>
+    <main class="home-main">
+      <div class="home-greeting">
+        <p class="greeting-label">Olá, <strong id="user-name">Eliakim</strong></p>
+        <p class="greeting-date" id="today-date"></p>
       </div>
-      <div>
-        <div class="header-title">Liberações de Segurança</div>
-        <div class="header-sub">UDE — Viana &amp; Moura</div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-number" id="stat-today">0</div>
+          <div class="stat-label">Hoje</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="stat-week">0</div>
+          <div class="stat-label">Esta semana</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="stat-total">0</div>
+          <div class="stat-label">Total</div>
+        </div>
       </div>
-    </div>
-    <div class="header-right">
-      <div class="user-chip" onclick="showProfile()">
-        <span id="user-initials">ER</span>
+
+      <h2 class="section-title">Tipos de Permissão</h2>
+      <div class="permit-grid" id="permit-grid"></div>
+
+      <h2 class="section-title">Últimas Liberações</h2>
+      <div class="recent-list" id="recent-list">
+        <div class="empty-state">
+          <svg viewBox="0 0 60 60" fill="none">
+            <circle cx="30" cy="30" r="28" stroke="#C9A96E" stroke-width="2" stroke-dasharray="4 4" />
+            <path d="M20 30h20M30 20v20" stroke="#C9A96E" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <p>Nenhuma liberação registrada ainda.</p>
+          <span>Selecione um tipo de permissão acima para começar.</span>
+        </div>
       </div>
-    </div>
-  </header>
+    </main>
 
-  <main class="home-main">
-    <div class="home-greeting">
-      <p class="greeting-label">Olá, <strong id="user-name">Eliakim</strong></p>
-      <p class="greeting-date" id="today-date"></p>
-    </div>
-
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-number" id="stat-today">0</div>
-        <div class="stat-label">Hoje</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number" id="stat-week">0</div>
-        <div class="stat-label">Esta semana</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number" id="stat-total">0</div>
-        <div class="stat-label">Total</div>
-      </div>
-    </div>
-
-    <h2 class="section-title">Tipos de Permissão</h2>
-    <div class="permit-grid" id="permit-grid"></div>
-
-    <h2 class="section-title">Últimas Liberações</h2>
-    <div class="recent-list" id="recent-list">
-      <div class="empty-state">
-        <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="28" stroke="#C9A96E" stroke-width="2" stroke-dasharray="4 4"/><path d="M20 30h20M30 20v20" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/></svg>
-        <p>Nenhuma liberação registrada ainda.</p>
-        <span>Selecione um tipo de permissão acima para começar.</span>
-      </div>
-    </div>
-  </main>
-
-  <nav class="bottom-nav">
-    <button class="nav-btn active" onclick="navTo('home')">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
-      Início
-    </button>
-    <button class="nav-btn" onclick="navTo('records')">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
-      Registros
-    </button>
-    <button class="nav-btn" onclick="navTo('admin')">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
-      Formulários
-    </button>
-  </nav>
-</div>
-
-<!-- ===== RECORDS SCREEN ===== -->
-<div id="screen-records" class="screen">
-  <header class="app-header">
-    <button class="back-btn" onclick="navTo('home')">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"/></svg>
-    </button>
-    <div>
-      <div class="header-title">Registros</div>
-      <div class="header-sub">Todas as liberações</div>
-    </div>
-    <div></div>
-  </header>
-  <main class="records-main">
-    <div class="search-bar">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"/></svg>
-      <input type="text" id="search-input" placeholder="Buscar por obra, tipo, responsável…" oninput="filterRecords()">
-    </div>
-    <div id="records-list"></div>
-  </main>
-</div>
-
-<!-- ===== ADMIN SCREEN (Manage Form Types) ===== -->
-<div id="screen-admin" class="screen">
-  <header class="app-header">
-    <button class="back-btn" onclick="navTo('home')">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"/></svg>
-    </button>
-    <div>
-      <div class="header-title">Tipos de Formulário</div>
-      <div class="header-sub">Gerenciar permissões</div>
-    </div>
-    <div></div>
-  </header>
-  <main class="admin-main">
-    <p class="admin-desc">Os formulários abaixo estão configurados no sistema. Novos tipos podem ser adicionados conforme necessário.</p>
-    <div id="admin-list"></div>
-    <button class="btn-add-form" onclick="showAddForm()">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/></svg>
-      Adicionar Novo Formulário
-    </button>
-  </main>
-</div>
-
-<!-- ===== FORM SCREEN ===== -->
-<div id="screen-form" class="screen">
-  <header class="app-header">
-    <button class="back-btn" onclick="backFromForm()">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"/></svg>
-    </button>
-    <div>
-      <div class="header-title" id="form-header-title">Permissão</div>
-      <div class="header-sub" id="form-header-sub">Preencha todos os campos</div>
-    </div>
-    <div class="form-step-badge" id="step-badge">1/3</div>
-  </header>
-
-  <div class="progress-bar-wrap">
-    <div class="progress-bar" id="progress-bar"></div>
-  </div>
-
-  <main class="form-main" id="form-main"></main>
-
-  <div class="form-footer">
-    <button class="btn-secondary" id="btn-prev" onclick="prevStep()" style="display:none">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"/></svg>
-      Anterior
-    </button>
-    <button class="btn-primary" id="btn-next" onclick="nextStep()">
-      Próximo
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/></svg>
-    </button>
-  </div>
-</div>
-
-<!-- ===== REVIEW SCREEN ===== -->
-<div id="screen-review" class="screen">
-  <header class="app-header">
-    <button class="back-btn" onclick="backToForm()">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"/></svg>
-    </button>
-    <div>
-      <div class="header-title">Revisão</div>
-      <div class="header-sub">Confirme os dados antes de salvar</div>
-    </div>
-    <div></div>
-  </header>
-  <main class="review-main" id="review-main"></main>
-  <div class="form-footer review-footer">
-    <button class="btn-secondary" onclick="backToForm()">Editar</button>
-    <button class="btn-success" onclick="savePermit()">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-      Salvar e Liberar
-    </button>
-  </div>
-</div>
-
-<!-- ===== SUCCESS SCREEN ===== -->
-<div id="screen-success" class="screen">
-  <div class="success-body">
-    <div class="success-icon">
-      <svg viewBox="0 0 80 80" fill="none">
-        <circle cx="40" cy="40" r="38" fill="#1A5C2A" opacity="0.15"/>
-        <circle cx="40" cy="40" r="30" fill="#1A5C2A" opacity="0.2"/>
-        <path d="M25 40l10 10 20-20" stroke="#2E7D32" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <h2 class="success-title">Serviço Liberado!</h2>
-    <p class="success-sub" id="success-desc"></p>
-    <div class="success-id-box">
-      <span class="success-id-label">Nº da Permissão</span>
-      <span class="success-id" id="success-permit-id"></span>
-    </div>
-    <div class="success-actions">
-      <button class="btn-secondary" onclick="viewPermitDetails()">
-        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-        Visualizar
-      </button>
-      <button class="btn-outline" onclick="exportPermit()">
-        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
-        Exportar PDF
-      </button>
-      <button class="btn-primary" onclick="goHome()">
-        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    <nav class="bottom-nav">
+      <button class="nav-btn active" onclick="navTo('home')">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path
+            d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+        </svg>
         Início
       </button>
+      <button class="nav-btn" onclick="navTo('records')">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+            clip-rule="evenodd" />
+        </svg>
+        Registros
+      </button>
+      <button class="nav-btn" onclick="navTo('admin')">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+            clip-rule="evenodd" />
+        </svg>
+        Formulários
+      </button>
+    </nav>
+  </div>
+
+  <!-- ===== RECORDS SCREEN ===== -->
+  <div id="screen-records" class="screen">
+    <header class="app-header">
+      <button class="back-btn" onclick="navTo('home')">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" />
+        </svg>
+      </button>
+      <div>
+        <div class="header-title">Registros</div>
+        <div class="header-sub">Todas as liberações</div>
+      </div>
+      <div></div>
+    </header>
+    <main class="records-main">
+      <div class="search-bar">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+        </svg>
+        <input type="text" id="search-input" placeholder="Buscar por obra, tipo, responsável…"
+          oninput="filterRecords()">
+      </div>
+      <div id="records-list"></div>
+    </main>
+  </div>
+
+  <!-- ===== ADMIN SCREEN (Manage Form Types) ===== -->
+  <div id="screen-admin" class="screen">
+    <header class="app-header">
+      <button class="back-btn" onclick="navTo('home')">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" />
+        </svg>
+      </button>
+      <div>
+        <div class="header-title">Tipos de Formulário</div>
+        <div class="header-sub">Gerenciar permissões</div>
+      </div>
+      <div></div>
+    </header>
+    <main class="admin-main">
+      <p class="admin-desc">Os formulários abaixo estão configurados no sistema. Novos tipos podem ser adicionados
+        conforme necessário.</p>
+      <div id="admin-list"></div>
+      <button class="btn-add-form" onclick="showAddForm()">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+        </svg>
+        Adicionar Novo Formulário
+      </button>
+    </main>
+  </div>
+
+  <!-- ===== FORM SCREEN ===== -->
+  <div id="screen-form" class="screen">
+    <header class="app-header">
+      <button class="back-btn" onclick="backFromForm()">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" />
+        </svg>
+      </button>
+      <div>
+        <div class="header-title" id="form-header-title">Permissão</div>
+        <div class="header-sub" id="form-header-sub">Preencha todos os campos</div>
+      </div>
+      <div class="form-step-badge" id="step-badge">1/3</div>
+    </header>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <main class="form-main" id="form-main"></main>
+
+    <div class="form-footer">
+      <button class="btn-secondary" id="btn-prev" onclick="prevStep()" style="display:none">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" />
+        </svg>
+        Anterior
+      </button>
+      <button class="btn-primary" id="btn-next" onclick="nextStep()">
+        Próximo
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" />
+        </svg>
+      </button>
     </div>
   </div>
-</div>
 
-<!-- ===== MODAL: ADD FORM TYPE ===== -->
-<div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
-  <div class="modal-card" onclick="event.stopPropagation()">
-    <h3 class="modal-title">Novo Tipo de Formulário</h3>
-    <p class="modal-desc">Configure o nome e ícone do novo formulário. Os campos deverão ser definidos no painel de administração web.</p>
-    <div class="form-group">
-      <label>Nome do Formulário</label>
-      <input type="text" id="new-form-name" placeholder="Ex: Trabalho a Quente">
-    </div>
-    <div class="form-group">
-      <label>Código / Sigla</label>
-      <input type="text" id="new-form-code" placeholder="Ex: PTQ">
-    </div>
-    <div class="form-group">
-      <label>Descrição</label>
-      <input type="text" id="new-form-desc" placeholder="Ex: Permissão para soldagem e corte">
-    </div>
-    <div class="modal-actions">
-      <button class="btn-secondary" onclick="closeModal()">Cancelar</button>
-      <button class="btn-primary" onclick="addFormType()">Adicionar</button>
+  <!-- ===== REVIEW SCREEN ===== -->
+  <div id="screen-review" class="screen">
+    <header class="app-header">
+      <button class="back-btn" onclick="backToForm()">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" />
+        </svg>
+      </button>
+      <div>
+        <div class="header-title">Revisão</div>
+        <div class="header-sub">Confirme os dados antes de salvar</div>
+      </div>
+      <div></div>
+    </header>
+    <main class="review-main" id="review-main"></main>
+    <div class="form-footer review-footer">
+      <button class="btn-secondary" onclick="backToForm()">Editar</button>
+      <button class="btn-success" onclick="savePermit()">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+        </svg>
+        Salvar e Liberar
+      </button>
     </div>
   </div>
-</div>
 
-<!-- ===== TOAST ===== -->
-<div id="toast" class="toast"></div>
+  <!-- ===== SUCCESS SCREEN ===== -->
+  <div id="screen-success" class="screen">
+    <div class="success-body">
+      <div class="success-icon">
+        <svg viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="40" r="38" fill="#1A5C2A" opacity="0.15" />
+          <circle cx="40" cy="40" r="30" fill="#1A5C2A" opacity="0.2" />
+          <path d="M25 40l10 10 20-20" stroke="#2E7D32" stroke-width="4" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </div>
+      <h2 class="success-title">Serviço Liberado!</h2>
+      <p class="success-sub" id="success-desc"></p>
+      <div class="success-id-box">
+        <span class="success-id-label">Nº da Permissão</span>
+        <span class="success-id" id="success-permit-id"></span>
+      </div>
+      <div class="success-actions">
+        <button class="btn-secondary" onclick="viewPermitDetails()">
+          <svg viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+            <path fill-rule="evenodd"
+              d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          Visualizar
+        </button>
+        <button class="btn-outline" onclick="exportPermit()">
+          <svg viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" />
+          </svg>
+          Exportar PDF
+        </button>
+        <button class="btn-primary" onclick="goHome()">
+          <svg viewBox="0 0 20 20" fill="currentColor">
+            <path
+              d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+          </svg>
+          Início
+        </button>
+      </div>
+    </div>
+  </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="pdf_export.js"></script>
-<script src="app.js"></script>
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
-  }
-</script>
+  <!-- ===== MODAL: ADD FORM TYPE ===== -->
+  <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <h3 class="modal-title">Novo Tipo de Formulário</h3>
+      <p class="modal-desc">Configure o nome e ícone do novo formulário. Os campos deverão ser definidos no painel de
+        administração web.</p>
+      <div class="form-group">
+        <label>Nome do Formulário</label>
+        <input type="text" id="new-form-name" placeholder="Ex: Trabalho a Quente">
+      </div>
+      <div class="form-group">
+        <label>Código / Sigla</label>
+        <input type="text" id="new-form-code" placeholder="Ex: PTQ">
+      </div>
+      <div class="form-group">
+        <label>Descrição</label>
+        <input type="text" id="new-form-desc" placeholder="Ex: Permissão para soldagem e corte">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal()">Cancelar</button>
+        <button class="btn-primary" onclick="addFormType()">Adicionar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: INFO ===== -->
+  <div id="modal-info-overlay" class="modal-overlay" onclick="closeInfoModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <h3 class="modal-title" style="color: var(--red); display: flex; align-items: center; gap: 8px;">
+        <svg viewBox="0 0 20 20" fill="currentColor" style="width: 24px;">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+        </svg>
+        Sobre o Sistema
+      </h3>
+      <p class="modal-desc" style="margin-top: 12px; font-size: 14px; color: var(--text);">
+        O <strong>VMC Liberações de Segurança</strong> permite o preenchimento e controle de permissões de trabalho de forma totalmente digital.
+      </p>
+      <div class="info-box" style="margin-top: 16px;">
+        ⚠️ <strong>Atenção ao Armazenamento:</strong><br><br>
+        Todas as informações cadastradas neste sistema ficam salvas <strong>exclusivamente de forma LOCAL na memória deste dispositivo</strong>.
+        <br><br>
+        <strong>NÃO há acesso a nenhum banco de dados externo ou nas nuvens.</strong>
+        <br><br>
+        Para não perder as informações registradas, é de suma importância que você sempre <strong>Exporte o PDF</strong> das liberações concluídas e o guarde em local seguro (Drive, WhatsApp, etc.). Se os dados de navegação do dispositivo forem limpos, as informações locais serão apagadas irreversivelmente.
+      </div>
+      <div class="modal-actions" style="justify-content: flex-end;">
+        <button class="btn-primary" onclick="closeInfoModal()">Entendi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div id="toast" class="toast"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="pdf_export.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => { });
+    }
+  </script>
 </body>
+
 </html>

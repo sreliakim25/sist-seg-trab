@@ -1,5 +1,5 @@
-/* VMC Safety — Service Worker v1.0 */
-const CACHE = 'vmc-safety-v1';
+/* VMC Safety — Service Worker v2.0 */
+const CACHE = 'vmc-safety-v2';
 const ASSETS = ['/', '/index.html', '/style.css', '/app.js', '/manifest.json'];
 
 self.addEventListener('install', e => {

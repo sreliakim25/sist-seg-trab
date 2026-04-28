@@ -985,6 +985,14 @@ function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
 }
 
+function showInfoModal() {
+  document.getElementById('modal-info-overlay').classList.add('open');
+}
+
+function closeInfoModal() {
+  document.getElementById('modal-info-overlay').classList.remove('open');
+}
+
 function addFormType() {
   const name = document.getElementById('new-form-name').value.trim();
   const code = document.getElementById('new-form-code').value.trim();
