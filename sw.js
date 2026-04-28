@@ -1,6 +1,6 @@
-/* VMC Safety — Service Worker v2.0 */
-const CACHE = 'vmc-safety-v2';
-const ASSETS = ['/', '/index.html', '/style.css', '/app.js', '/manifest.json'];
+/* VMC Safety — Service Worker v3.0 */
+const CACHE = 'vmc-safety-v3';
+const ASSETS = ['/', '/index.html', '/style.css', '/app.js', '/manifest.json', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
