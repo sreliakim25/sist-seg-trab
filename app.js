@@ -771,15 +771,31 @@ function generateReviewHTML() {
   // Checklist summary
   const checkKeys = Object.entries(formData).filter(([k]) => /^(chk|g|a|e|o)\d+$/.test(k));
   if (checkKeys.length) {
-    const cCount  = checkKeys.filter(([,v]) => v === 'C'   || v === 'SIM').length;
-    const ncCount = checkKeys.filter(([,v]) => v === 'NC'  || v === 'NAO').length;
-    const naCount = checkKeys.filter(([,v]) => v === 'NA').length;
+    const cItems  = checkKeys.filter(([,v]) => v === 'C'   || v === 'SIM');
+    const ncItemsList = checkKeys.filter(([,v]) => v === 'NC'  || v === 'NAO');
+    const naItems = checkKeys.filter(([,v]) => v === 'NA');
+
+    const buildAcc = (title, items, color, symbol, id) => {
+      const cnt = items.length;
+      if (cnt === 0) return `<div class="review-row"><span class="review-label">${title}</span><span class="review-value" style="color:${color};font-weight:700">${symbol} 0</span></div>`;
+      return `<div class="review-row" onclick="toggleAcc('${id}')" style="cursor:pointer; border-radius:4px; padding:4px 8px; margin:0 -8px; transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.03)'" onmouseout="this.style.background='transparent'">
+        <span class="review-label" style="display:flex;align-items:center;gap:6px;">
+          ${title}
+          <svg id="icn-${id}" viewBox="0 0 20 20" fill="currentColor" style="width:16px;height:16px;transition:0.2s"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </span>
+        <span class="review-value" style="color:${color};font-weight:700">${symbol} ${cnt}</span>
+      </div>
+      <div id="${id}" style="display:none; padding:8px 12px; margin-bottom:8px; background:rgba(0,0,0,0.03); border-left:3px solid ${color}; border-radius:0 4px 4px 0; font-size:13px; color:var(--text-md);">
+        ${items.map(([k]) => `<div style="padding:2px 0">• Item ${k.replace(/[a-z]+/g,'').trim() || k}</div>`).join('')}
+      </div>`;
+    };
+
     html += `<div class="review-section">
       <div class="review-section-title">Resumo da Lista de Verificação</div>
-      <div class="review-row"><span class="review-label">Conformes</span><span class="review-value" style="color:#2E7D32;font-weight:700">✓ ${cCount}</span></div>
-      <div class="review-row"><span class="review-label">Não Conformes</span><span class="review-value" style="color:#C62828;font-weight:700">✗ ${ncCount}</span></div>
-      <div class="review-row"><span class="review-label">Não Aplicáveis</span><span class="review-value" style="color:#757575">— ${naCount}</span></div>
-      <div class="review-row"><span class="review-label">Total Verificado</span><span class="review-value">${checkKeys.length}</span></div>
+      ${buildAcc('Conformes', cItems, '#2E7D32', '✓', 'acc-c')}
+      ${buildAcc('Não Conformes', ncItemsList, '#C62828', '✗', 'acc-nc')}
+      ${buildAcc('Não Aplicáveis', naItems, '#757575', '—', 'acc-na')}
+      <div class="review-row" style="margin-top:8px; border-top:1px dashed #E0D5C1; padding-top:8px;"><span class="review-label">Total Verificado</span><span class="review-value" style="font-weight:700">${checkKeys.length}</span></div>
     </div>`;
   }
 
@@ -1022,6 +1038,19 @@ function toast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── ACCORDION ─────────────────────────────────────────────────
+function toggleAcc(id) {
+  const el = document.getElementById(id);
+  const icon = document.getElementById('icn-' + id);
+  if (el.style.display === 'none') {
+    el.style.display = 'block';
+    icon.style.transform = 'rotate(180deg)';
+  } else {
+    el.style.display = 'none';
+    icon.style.transform = 'rotate(0deg)';
+  }
 }
 
 // ── INIT ──────────────────────────────────────────────────────
