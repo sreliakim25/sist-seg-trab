@@ -16,7 +16,7 @@ let currentStep   = 0;
 
 const VALID_USERS = {
   'eliakimrocha': { name: 'Eliakim Rocha', role: 'Técnico de Segurança', pass: '123' },
-  'livyafarais':  { name: 'Livya Farais',  role: 'Técnico de Segurança', pass: '12345' }
+  'livyafarias':  { name: 'Livya Farias',  role: 'Técnico de Segurança', pass: '12345' }
 };
 let formData      = {};
 let currentPermitId = null;
