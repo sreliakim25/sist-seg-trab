@@ -13,6 +13,11 @@ const DB = {
 let currentUser   = null;
 let currentForm   = null;
 let currentStep   = 0;
+
+const VALID_USERS = {
+  'eliakimrocha': { name: 'Eliakim Rocha', role: 'Técnico de Segurança', pass: '123' },
+  'livyafarais':  { name: 'Livya Farais',  role: 'Técnico de Segurança', pass: '12345' }
+};
 let formData      = {};
 let currentPermitId = null;
 let lastSavedPermit = null;
@@ -575,16 +580,32 @@ function goHome() { navTo('home'); }
 
 // ── LOGIN ─────────────────────────────────────────────────────
 function doLogin() {
-  const user = document.getElementById('login-user').value.trim();
-  const pass = document.getElementById('login-pass').value;
-  if (!user || !pass) { toast('Preencha usuário e senha.'); return; }
-  // Offline: aceita qualquer login (em produção: validar contra lista local)
-  currentUser = { name: user.charAt(0).toUpperCase() + user.slice(1), initials: user.slice(0,2).toUpperCase() };
-  DB.set('currentUser', currentUser);
-  document.getElementById('user-name').textContent = currentUser.name;
-  document.getElementById('user-initials').textContent = currentUser.initials;
-  refreshHome();
-  showScreen('home');
+  const userInput = document.getElementById('login-user').value.trim().toLowerCase();
+  const passInput = document.getElementById('login-pass').value;
+  
+  if (!userInput || !passInput) { toast('Preencha usuário e senha.'); return; }
+  
+  const userMatch = VALID_USERS[userInput];
+  
+  if (userMatch && userMatch.pass === passInput) {
+    currentUser = { 
+      name: userMatch.name, 
+      role: userMatch.role,
+      initials: userMatch.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2) 
+    };
+    DB.set('currentUser', currentUser);
+    
+    document.getElementById('user-name').textContent = currentUser.name;
+    document.getElementById('user-initials').textContent = currentUser.initials;
+    if (document.getElementById('user-role')) {
+      document.getElementById('user-role').textContent = '(' + currentUser.role + ')';
+    }
+    
+    refreshHome();
+    showScreen('home');
+  } else {
+    toast('Usuário ou senha incorretos.');
+  }
 }
 
 function togglePass() {
@@ -1074,6 +1095,9 @@ window.addEventListener('DOMContentLoaded', () => {
     currentUser = stored;
     document.getElementById('user-name').textContent = currentUser.name;
     document.getElementById('user-initials').textContent = currentUser.initials;
+    if (document.getElementById('user-role')) {
+      document.getElementById('user-role').textContent = '(' + (currentUser.role || '') + ')';
+    }
     refreshHome();
     showScreen('home');
   } else {
