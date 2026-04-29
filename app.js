@@ -592,7 +592,14 @@ function togglePass() {
   inp.type = inp.type === 'password' ? 'text' : 'password';
 }
 
-function showProfile() { toast('Olá, ' + currentUser.name + '!'); }
+function showProfile() {
+  if (confirm('Olá, ' + currentUser.name + '! Deseja sair do sistema?')) {
+    DB.set('currentUser', null);
+    currentUser = null;
+    document.getElementById('login-pass').value = '';
+    showScreen('login');
+  }
+}
 
 // ── HOME ──────────────────────────────────────────────────────
 function refreshHome() {
