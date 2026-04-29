@@ -399,6 +399,7 @@ const FORMS = {
 };
 
 // ── HELPERS ───────────────────────────────────────────────────
+const CHECKLIST_TEXTS = {};
 const today = () => new Date().toISOString().split('T')[0];
 const nowTime = () => new Date().toTimeString().slice(0,5);
 const v = (field, def = '') => formData[field] !== undefined ? formData[field] : def;
@@ -406,6 +407,7 @@ const fmt = d => d ? new Date(d + 'T12:00').toLocaleDateString('pt-BR') : '—';
 const fmtDT = () => new Date().toLocaleDateString('pt-BR', {weekday:'long',day:'2-digit',month:'long',year:'numeric'});
 
 function checkSection(title, items) {
+  items.forEach(i => CHECKLIST_TEXTS[i.id] = i.txt);
   return `<div class="checklist-section">
     <div class="checklist-title">${title}</div>
     ${items.map(i => `
@@ -421,6 +423,7 @@ function checkSection(title, items) {
 }
 
 function yesNoSection(title, items) {
+  items.forEach(i => CHECKLIST_TEXTS[i.id] = i.txt);
   return `<div class="checklist-section">
     <div class="checklist-title">${title}</div>
     ${items.map(i => `
@@ -743,7 +746,7 @@ function generateReviewHTML() {
   if (ncItems.length) {
     html += `<div class="review-warnings">
       <div class="review-warn-title">⚠️ Itens Não Conformes / Não (${ncItems.length})</div>
-      ${ncItems.map(k => `<div class="review-warn-item">• Item ${k.replace(/[a-z]+/g,'').trim() || k} marcado como NÃO CONFORME</div>`).join('')}
+      ${ncItems.map(k => `<div class="review-warn-item">• ${CHECKLIST_TEXTS[k] || k}</div>`).join('')}
     </div>`;
   }
 
@@ -786,7 +789,7 @@ function generateReviewHTML() {
         <span class="review-value" style="color:${color};font-weight:700">${symbol} ${cnt}</span>
       </div>
       <div id="${id}" style="display:none; padding:8px 12px; margin-bottom:8px; background:rgba(0,0,0,0.03); border-left:3px solid ${color}; border-radius:0 4px 4px 0; font-size:13px; color:var(--text-md);">
-        ${items.map(([k]) => `<div style="padding:2px 0">• Item ${k.replace(/[a-z]+/g,'').trim() || k}</div>`).join('')}
+        ${items.map(([k]) => `<div style="padding:4px 0; line-height:1.4;">• ${CHECKLIST_TEXTS[k] || k}</div>`).join('')}
       </div>`;
     };
 
@@ -1055,6 +1058,9 @@ function toggleAcc(id) {
 
 // ── INIT ──────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
+  // Preload checklist texts
+  try { Object.values(FORMS).forEach(f => f.steps.forEach(s => { if(s.render) s.render(); })); } catch(e) {}
+
   // Restore session
   const stored = DB.get('currentUser');
   if (stored) {
