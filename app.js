@@ -21,6 +21,8 @@ const VALID_USERS = {
 let formData      = {};
 let currentPermitId = null;
 let lastSavedPermit = null;
+let signaturePad    = null;
+let currentSigningTarget = null;
 
 // ── FORM DEFINITIONS ─────────────────────────────────────────
 const FORM_TYPES = DB.get('formTypes', [
@@ -458,6 +460,7 @@ function renderWorkers(field, max) {
       <span class="worker-num">${i + 1}.</span>
       <input type="text" placeholder="Nome do colaborador" value="${w}"
         oninput="updateWorker('${field}', ${i}, this.value)">
+      ${sigBtn(`${field}_${i}`)}
     </div>`).join('') + `
     <div style="display:flex;gap:8px;margin-top:8px">
       <button class="btn-add-form" style="flex:1;margin:0" onclick="addWorker('${field}')">
@@ -476,11 +479,20 @@ function renderWorkersPA(field, min) {
       <th style="padding:8px;text-align:left;border-bottom:1.5px solid var(--border)">Função</th>
       <th style="padding:8px;text-align:center;border-bottom:1.5px solid var(--border)">PA (mmHg)</th>
       <th style="padding:8px;text-align:left;border-bottom:1.5px solid var(--border)">Matrícula/CPF</th>
+      <th style="padding:8px;text-align:center;border-bottom:1.5px solid var(--border)">Assinatura</th>
     </tr></thead>
     <tbody id="workers-pta-tbody">
     ${workers.map((w, i) => workerPARow(i, w)).join('')}
     </tbody>
   </table></div>`;
+}
+
+function sigBtn(id) {
+  const signed = formData.signatures && formData.signatures[id];
+  return `<button class="btn-sig ${signed?'signed':''}" onclick="openSignatureModal('${id}')">
+    <svg viewBox="0 0 20 20" fill="currentColor" style="width:14px"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" /></svg>
+    ${signed?'✓':'Assinar'}
+  </button>`;
 }
 
 function workerPARow(i, w = {}) {
@@ -489,6 +501,7 @@ function workerPARow(i, w = {}) {
     <td style="padding:6px"><input type="text" style="width:100%;border:none;background:none;font-size:13px;font-family:var(--font-body)" placeholder="Função" value="${w.funcao||''}" oninput="updateWorkerPA(${i},'funcao',this.value)"></td>
     <td style="padding:6px;text-align:center"><input type="text" style="width:80px;border:none;background:none;font-size:13px;text-align:center;font-family:var(--font-body)" placeholder="120x80" value="${w.pa||''}" oninput="updateWorkerPA(${i},'pa',this.value)"></td>
     <td style="padding:6px"><input type="text" style="width:100%;border:none;background:none;font-size:13px;font-family:var(--font-body)" placeholder="CPF ou RG" value="${w.matricula||''}" oninput="updateWorkerPA(${i},'matricula',this.value)"></td>
+    <td style="padding:6px;text-align:center">${sigBtn(`workers_pta_${i}`)}</td>
   </tr>`;
 }
 
@@ -500,6 +513,7 @@ function renderAuthRow(field, count) {
         <span class="worker-num">${i+1}.</span>
         <input type="text" placeholder="Nome do responsável" value="${a.nome||''}"
           oninput="updateAuth('${field}',${i},this.value)">
+        ${sigBtn(`${field}_${i}`)}
       </div>`).join('')}
   </div>`;
 }
@@ -844,7 +858,11 @@ function generateReviewHTML() {
   if (wPte && wPte.length) {
     html += `<div class="review-section">
       <div class="review-section-title">Colaboradores Autorizados</div>
-      ${wPte.map((w,i) => `<div class="review-row"><span class="review-label">${i+1}.</span><span class="review-value">${w}</span></div>`).join('')}
+      ${wPte.map((w,i) => `
+      <div class="review-row">
+        <span class="review-label">${i+1}. ${w}</span>
+        <span class="review-value">${renderReviewSig(`workers_pte_${i}`)}</span>
+      </div>`).join('')}
     </div>`;
   }
 
@@ -853,7 +871,11 @@ function generateReviewHTML() {
   if (wPta && wPta.length) {
     html += `<div class="review-section">
       <div class="review-section-title">Controle de Trabalhadores em Altura</div>
-      ${wPta.map((w,i) => `<div class="review-row"><span class="review-label">${w.nome}</span><span class="review-value">${w.funcao||''} ${w.pa ? '| PA: '+w.pa : ''}</span></div>`).join('')}
+      ${wPta.map((w,i) => `
+      <div class="review-row">
+        <span class="review-label">${w.nome} (${w.funcao||''})</span>
+        <span class="review-value">${renderReviewSig(`workers_pta_${i}`)}</span>
+      </div>`).join('')}
     </div>`;
   }
 
@@ -1061,6 +1083,53 @@ function deleteFormType(idx) {
   DB.set('formTypes', formTypes);
   renderAdmin();
   toast('Removido.');
+}
+
+function renderReviewSig(id) {
+  const sig = formData.signatures && formData.signatures[id];
+  if (!sig) return '<span style="color:var(--danger);font-size:10px">Sem ass.</span>';
+  return `<img src="${sig}" style="max-height:24px; vertical-align:middle; mix-blend-mode:multiply">`;
+}
+
+// ── SIGNATURE PAD ─────────────────────────────────────────────
+function openSignatureModal(targetId) {
+  currentSigningTarget = targetId;
+  document.getElementById('modal-signature-overlay').classList.add('open');
+  const canvas = document.getElementById('signature-canvas');
+  
+  if (!signaturePad) {
+    signaturePad = new SignaturePad(canvas, {
+      backgroundColor: 'rgba(255, 255, 255, 0)',
+      penColor: 'rgb(20, 20, 20)'
+    });
+  }
+  
+  // Resize canvas
+  const ratio = Math.max(window.devicePixelRatio || 1, 1);
+  canvas.width = canvas.offsetWidth * ratio;
+  canvas.height = canvas.offsetHeight * ratio;
+  canvas.getContext("2d").scale(ratio, ratio);
+  signaturePad.clear();
+}
+
+function closeSignatureModal() {
+  document.getElementById('modal-signature-overlay').classList.remove('open');
+}
+
+function clearSignature() {
+  if (signaturePad) signaturePad.clear();
+}
+
+function saveSignature() {
+  if (signaturePad.isEmpty()) { toast('Por favor, assine antes de confirmar.'); return; }
+  
+  const data = signaturePad.toDataURL('image/png');
+  if (!formData.signatures) formData.signatures = {};
+  formData.signatures[currentSigningTarget] = data;
+  
+  closeSignatureModal();
+  reRenderStep();
+  toast('Assinatura salva com sucesso!');
 }
 
 // ── TOAST ─────────────────────────────────────────────────────

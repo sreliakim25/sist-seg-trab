@@ -506,3 +506,24 @@ html, body {
 .info-box strong { color: var(--red); }
 
 .required-star { color: var(--red); margin-left: 2px; }
+
+/* ── SIGNATURE ──────────────────────────────────────────────── */
+.signature-card { width: 95%; max-width: 500px; }
+.signature-pad-wrapper {
+  width: 100%; height: 200px; background: var(--cream); border: 2px dashed var(--border);
+  border-radius: var(--radius-sm); margin: 15px 0; position: relative; touch-action: none;
+}
+.signature-pad-wrapper canvas {
+  position: absolute; left: 0; top: 0; width: 100%; height: 100%; cursor: crosshair;
+}
+.sig-indicator {
+  display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600;
+  color: var(--success); margin-left: 8px; white-space: nowrap;
+}
+.btn-sig {
+  background: var(--cream-dk); border: 1.5px solid var(--border); border-radius: 8px;
+  padding: 6px 10px; font-size: 12px; font-weight: 600; color: var(--text-md);
+  cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.2s;
+}
+.btn-sig:active { background: var(--border); }
+.btn-sig.signed { color: var(--success); border-color: var(--success); background: rgba(46,125,50,0.05); }

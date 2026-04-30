@@ -381,10 +381,31 @@
     </div>
   </div>
 
+  <!-- ===== MODAL: SIGNATURE ===== -->
+  <div id="modal-signature-overlay" class="modal-overlay">
+    <div class="modal-card signature-card">
+      <h3 class="modal-title">Assinatura Digital</h3>
+      <p class="modal-desc">Assine no campo abaixo utilizando o dedo ou caneta digital.</p>
+      
+      <div class="signature-pad-wrapper">
+        <canvas id="signature-canvas"></canvas>
+      </div>
+      
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="clearSignature()">Limpar</button>
+        <div style="display:flex; gap:8px;">
+          <button class="btn-secondary" onclick="closeSignatureModal()">Cancelar</button>
+          <button class="btn-primary" onclick="saveSignature()">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== TOAST ===== -->
   <div id="toast" class="toast"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
   <script src="pdf_export.js"></script>
   <script src="app.js"></script>
   <script>
