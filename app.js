@@ -886,6 +886,35 @@ function generateReviewHTML() {
     </div>`;
   }
 
+  // Avisos e Recomendações Permanentes (Visualização)
+  if (currentForm === 'PTE') {
+    html += `<div class="review-section" style="background:#fffaf0; border:1px solid #ffeebc; padding:12px; margin-top:16px;">
+      <div class="review-section-title" style="color:#856404; margin-bottom:8px;">Recomendações Permanentes</div>
+      <ul style="font-size:12px; color:#856404; padding-left:16px; line-height:1.4;">
+        <li>Uso do EPI específico;</li>
+        <li>Não fumar;</li>
+        <li>Manter a área limpa e prevenida contra poluição ambiental;</li>
+        <li>Paralisar e comunicar ao emitente em caso de situações de risco;</li>
+        <li>Paralisar o serviço em situações de emergência;</li>
+        <li>A PTE perde a validade se as recomendações não forem atendidas;</li>
+        <li>A entrada na vala não é permitida se houver item Não Conforme.</li>
+      </ul>
+    </div>`;
+  } else if (currentForm === 'PTA') {
+    html += `<div class="review-section" style="background:#f0f7ff; border:1px solid #cfe2ff; padding:12px; margin-top:16px;">
+      <div class="review-section-title" style="color:#084298; margin-bottom:8px;">Avisos Importantes (NR-35)</div>
+      <ul style="font-size:12px; color:#084298; padding-left:16px; line-height:1.4;">
+        <li>A PT-Altura só é válida para o local descrito no cabeçalho;</li>
+        <li>Deve ficar exposta no local de trabalho até o término;</li>
+        <li>Analisar atentamente o local antes de iniciar;</li>
+        <li>Nunca andar sobre materiais frágeis (telhas, ripas, etc);</li>
+        <li>Proibido arremessar qualquer tipo de material;</li>
+        <li>Proibido trabalhar sob chuva ou ventos fortes;</li>
+        <li>O colaborador NÃO é autorizado se a PA for superior a 130x80 mmHg.</li>
+      </ul>
+    </div>`;
+  }
+
   return html;
 }
 
@@ -1032,16 +1061,11 @@ function viewRecord(id) {
 function renderAdmin() {
   const formTypes = DB.get('formTypes', FORM_TYPES);
   document.getElementById('admin-list').innerHTML = formTypes.map((ft, i) => `
-    <div class="admin-item">
+    <div class="admin-item" onclick="previewFormTemplate('${ft.id}')" style="cursor:pointer" title="Clique para visualizar modelo">
       <div class="admin-item-icon">${ft.icon}</div>
       <div class="admin-item-info">
         <div class="admin-item-name">${ft.name}</div>
         <div class="admin-item-meta">${ft.code} • ${ft.desc}</div>
-      </div>
-      <div class="admin-item-actions">
-        <button class="admin-btn-sm" onclick="deleteFormType(${i})" title="Remover">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-        </button>
       </div>
     </div>`).join('');
 }
@@ -1052,6 +1076,44 @@ function showAddForm() {
 
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function previewFormTemplate(formId) {
+  const form = FORMS[formId];
+  if (!form) {
+    toast('Modelo não disponível para este formulário.');
+    return;
+  }
+
+  const ft = DB.get('formTypes', FORM_TYPES).find(f => f.id === formId);
+  document.getElementById('preview-header-sub').textContent = ft.name + ' (' + ft.code + ')';
+  
+  // Salva estado atual para não perder preenchimento se houver
+  const tempFormData = {...formData};
+  const tempCurrentForm = currentForm;
+  
+  // Limpa temporariamente para renderizar modelo limpo
+  formData = {};
+  currentForm = formId;
+  
+  let html = `<div class="review-section">
+    <div class="review-section-title" style="color:var(--red)">Estrutura do Formulário</div>
+    <p style="font-size:13px; color:var(--text-lt); margin-bottom:12px;">Abaixo você confere todas as perguntas e seções que compõem este formulário.</p>
+  </div>`;
+
+  form.steps.forEach(step => {
+    html += `<div class="review-section" style="border-top:1px solid var(--border); padding-top:16px; margin-top:16px;">
+      <div class="review-section-title">${step.title}</div>
+      <div style="opacity:0.8; pointer-events:none;">${step.render()}</div>
+    </div>`;
+  });
+
+  document.getElementById('preview-main').innerHTML = html;
+  showScreen('preview');
+  
+  // Restaura estado
+  formData = tempFormData;
+  currentForm = tempCurrentForm;
 }
 
 function showInfoModal() {

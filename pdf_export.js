@@ -89,6 +89,15 @@ const VMC_PDF = (() => {
     doc.text(label, x + w/2, y + h - 1.2, {align:'center'});
   }
 
+  function drawSig(doc, x, y, w, h, sigData) {
+    if (!sigData) return;
+    try {
+      doc.addImage(sigData, 'PNG', x, y, w, h, undefined, 'FAST');
+    } catch (e) {
+      console.error('Erro ao adicionar assinatura ao PDF', e);
+    }
+  }
+
   // ── CHECK ITEMS PTE ───────────────────────────────────────
   const CHK_PTE = [
     {id:'chk1',  sec:'COLABORADOR', txt:'1. Todos os colaboradores conhecem o POP da atividade.'},
@@ -384,6 +393,11 @@ const VMC_PDF = (() => {
       const wx = ML + col * half, wy = y + row * sigh;
       filledRect(doc, wx, wy, half, sigh, (Math.floor(i/2))%2===0 ? LGRAY : WHITE, true, 0.15);
       txt(doc, wx+1.5, wy+4, `${i+1}. ${workers[i]||''}`, 7.5);
+      
+      const sigData = d.signatures && d.signatures[`workers_pte_${i}`];
+      if (sigData && workers[i]) {
+        drawSig(doc, wx + half - 18, wy + 0.5, 16, 5.5, sigData);
+      }
     }
     y += 7 * sigh;
 
@@ -553,7 +567,17 @@ const VMC_PDF = (() => {
       let axc = ML;
       filledRect(doc, axc, y, acols[0], arh, i%2===0?LGRAY:WHITE, true, 0.2);
       txt(doc, axc+1.5, y+arh-2.5, typeof a === 'object' ? (a.nome||'') : a, 7.5);
-      for (let j = 1; j < 5; j++) { axc += acols[j-1]; filledRect(doc, axc, y, acols[j], arh, i%2===0?LGRAY:WHITE, true, 0.2); }
+      
+      // Assinatura (col 1) e Rubrica (col 4)
+      const sigData = d.signatures && d.signatures[`auth_resp_${i}`];
+      
+      for (let j = 1; j < 5; j++) { 
+        axc += acols[j-1]; 
+        filledRect(doc, axc, y, acols[j], arh, i%2===0?LGRAY:WHITE, true, 0.2);
+        if ((j === 1 || j === 4) && sigData && (a.nome || (typeof a === 'string' && a))) {
+          drawSig(doc, axc + 2, y + 0.5, acols[j] - 4, arh - 1, sigData);
+        }
+      }
       y += arh;
     }
 
@@ -576,13 +600,19 @@ const VMC_PDF = (() => {
       const wr = workers[i] || {};
       const wrh = 6.5;
       const bg = i%2===0 ? LGRAY : WHITE;
-      const vals = [wr.nome||'', wr.funcao||'', wr.matricula||'', wr.pa||'', ''];
+      const vals = [wr.nome||'', wr.funcao||'', wr.matricula||'', wr.pa||''];
       let wrhx = ML;
       vals.forEach((v, j) => {
         filledRect(doc, wrhx, y, wcols[j], wrh, bg, true, 0.15);
         txt(doc, wrhx+1.5, y+wrh-2, v, 7.5);
         wrhx += wcols[j];
       });
+      // Assinatura/Rubrica (última col)
+      filledRect(doc, wrhx, y, wcols[4], wrh, bg, true, 0.15);
+      const sigData = d.signatures && d.signatures[`workers_pta_${i}`];
+      if (sigData && wr.nome) {
+        drawSig(doc, wrhx + 2, y + 0.5, wcols[4] - 4, wrh - 1, sigData);
+      }
       y += wrh;
     }
 
